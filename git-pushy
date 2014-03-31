@@ -22,6 +22,10 @@ if [[ -n $tracking ]] ; then
         git push
         exit 0
     else
+        if [[ $branch == "master" ]] ; then
+            echo "Pushing to master failed. This is bad."
+            exit 1
+        fi
         # fails to push 
         git push origin --delete ${tracking//origin\/}
     fi
