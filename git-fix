@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: Thu 06 Mar 2014 03:27:24 PM
+set -e
+
+# create a new branch called fix-[CURRENT DATE]
+date=`date "+%m-%d"`
+branch=`git rev-parse --abbrev-ref HEAD`
+
+if [[ "$branch" != "master" ]]; then
+    echo $branch
+    git checkout master
+fi
+git up
+git checkout -b fix-$date

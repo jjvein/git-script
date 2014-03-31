@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: Thu 06 Mar 2014 03:27:24 PM
+set -e
+branch=`git rev-parse --abbrev-ref HEAD`
+if [[ $branch == "master" ]]; then
+	echo -e '\E[39;41m'"\033[1mWarning: You are on master branch.\033[0m"
+fi

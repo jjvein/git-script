@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# open modified file from last commit
+parent=`git rev-parse --show-toplevel`
+cd $parent
+editorpath=$EDITOR
+vimpath=`which mvim 2>/dev/null`
+if [ -n "$vimpath" ] ; then
+	editorpath=$vimpath 
+fi
+
+opener=$editorpath
+
+recentchanged=`git status --short --untracked-file=no | awk '{print $2}'`
+if [ -n "$recentchanged" ] ; then
+	echo "opening uncommit: $recentchanged"
+else
+	recentchanged=`git diff HEAD~1 --name-only`
+	echo "opening from last commit: $recentchanged"
+fi
+
+for f in $recentchanged
+do
+	opener="$opener $parent/$f"
+done
+
+eval $opener

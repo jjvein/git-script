@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 木 13  3 2014 01:55:35 PM
+
+# DESCRIPTION: git push for all occasions
+# USAGE: git pushy
+# WHY: tired of trying if it has remote branch
+# only to find that no tracking branch is set
+# or remote branch does not accept --force
+
+
+# stop if an error is raised
+set -e
+branch=`git rev-parse --abbrev-ref HEAD`
+tracking=`git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)`
+message=`git push --dry-run --porcelain 1>&- 2>&- || echo "failed"`
+
+# found tracking remote branch
+if [[ -n $tracking ]] ; then
+    if [[ "$message" != "failed" ]] ; then
+        # a normal push
+        git push
+        exit 0
+    else
+        # fails to push 
+        git push origin --delete ${tracking//origin\/}
+    fi
+fi
+
+author=`git config user.name`
+conf=`git config push.default`
+
+# first normalize the branch name
+# foo -> YOUR_GIT_USER_NAME/foo
+# and set remote branch to the normalized name
+remotebranch=$branch
+if [[ "$branch" != *$author\/* ]] ; then
+    remotebranch="$author/$branch"
+    git branch -m $remotebranch
+fi
+
+# push to remote branch
+git push --set-upstream origin $remotebranch
+
+# if push.default is upstream
+# we could use a simpler local branch name
+if [[ $conf == "upstream" ]] ; then
+    if [[ $remotebranch != $branch ]] ; then
+        git branch -m $branch
+    fi
+fi
+

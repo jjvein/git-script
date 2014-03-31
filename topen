@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 水 26  3月 2014 05:52:42 午後
+set -e
+
+# restore previous tmux session if possible
+# or create a new session
+previous=`tmux ls 2>/dev/null`
+number=`echo $previous | wc -l`
+if [[ $number = 0 ]] ; then
+    tmux -2 -CC
+    exit 0
+fi
+tmux -2 -CC attach

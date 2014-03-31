@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 月 31  3月 2014 11:57:19 午前
+
+set -e
+if [[ -n $1 ]] ; then
+    branch=$1
+else
+    branch=`git rev-parse --abbrev-ref HEAD`
+fi
+
+# remove "review/" prefix
+name=${branch/review\//}
+
+git branch -m $branch "completed/$name";

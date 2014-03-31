@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: Thu 06 Mar 2014 03:27:24 PM
+set -e
+
+# show git branch graph with oneline commit summary
+git log --graph --full-history --pretty=format:'%Cred%h%Creset %ad %s %C(yellow)%d%Creset %C(bold blue)<%an>%Creset' --date=short
+#git log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"

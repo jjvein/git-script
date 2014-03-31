@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: Thu 06 Mar 2014 03:27:24 PM
+set -e
+branch=`git branch | grep $1`
+git checkout $branch

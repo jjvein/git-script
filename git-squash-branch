@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+num=`git cherry master | wc -l`
+let "num=$num-1"
+if [[ $num > 0 ]]; then
+    git reset --soft HEAD~$num
+    git commit -am "squashed a few commits"
+fi

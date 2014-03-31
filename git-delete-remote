@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 月 31  3月 2014 11:56:40 午前
+
+set -e
+
+# remove all merged remote branches
+remote=`git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)`
+git push origin --delete ${remote//origin\/}

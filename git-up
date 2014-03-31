@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 土 22  3月 2014 09:25:35 午後
+
+set -e
+branch=`git rev-parse --abbrev-ref HEAD`
+git fetch origin
+
+git rebase origin/master
+
+if [[ $branch == "master" ]]; then
+    exit 0
+fi
+
+# update master as well
+git rebase origin master -q
+
+# switch back to the feature branch
+git checkout $branch

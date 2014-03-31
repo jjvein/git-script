@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: Thu 06 Mar 2014 03:27:24 PM
+set -e
+
+# brand a branch with prefix "review/"
+if [[ -n $1 ]] ; then
+    branch=$1
+else
+    branch=`git rev-parse --abbrev-ref HEAD`
+fi
+git branch -m $branch "review/$branch";

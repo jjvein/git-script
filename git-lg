@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 水 26  3月 2014 05:52:42 午後
+set -e
+
+# Pretty git log
+# USAGE
+# git lg            show recent commits
+# git lg [word]     show recent commits which contains the word 
+# git lg-           show all log
+# git lg [number]   show the last [number] commits
+
+logger="git log --no-merges --pretty=format:'%Cred%h%Creset %Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+
+if [[ -n $1 ]] ; then
+    if [[ $1 =~ ^[0-9]*$ ]] ; then
+        logger="$logger | head -$1"
+    elif [[ $1 == "-" ]] ; then
+        logger="$logger"
+    elif [[ $1 =~ ^[a-zA-Z]*$ ]] ; then
+        logger="$logger | grep $1"
+    else
+        logger="$logger $@"
+    fi
+else
+    logger="$logger | head"
+fi
+
+eval $logger

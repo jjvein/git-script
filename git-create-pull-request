@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 月 31  3月 2014 11:56:26 午前
+
+set -e
+# only one commit allowed
+commits=`git cherry origin/master | wc -l`
+if [[ $commits != 1 ]] ; then
+    echo "Only one commit allowed. Use git prereview to squash commits"
+    exit 1 
+fi
+
+# update before push
+branch=`git rev-parse --abbrev-ref HEAD`
+git checkout master
+git up
+git checkout $branch
+git rebase master
+author=`git config user.name`
+if [[ $branch != *${author}\/* ]]; then
+    git branch -m "$author/$branch"
+fi
+stash pull-request master $@
+
+git branch -m $branch

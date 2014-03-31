@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 水 26  3月 2014 05:52:42 午後
+set -e
+
+# list attached tmux sessions
+tmux ls

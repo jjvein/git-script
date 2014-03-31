@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 水 26  3月 2014 05:52:42 午後
+
+set -e
+
+# tmux attach
+
+if [[ -n $1 ]] ; then
+    tmux -2 -CC attach -t $1
+else
+    tmux attach
+fi
