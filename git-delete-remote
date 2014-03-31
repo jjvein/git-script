@@ -4,6 +4,6 @@
 
 set -e
 
-# remove all merged remote branches
+# remove remote tracking branches
 remote=`git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)`
 git push origin --delete ${remote//origin\/}

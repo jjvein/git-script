@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 火 18  3月 2014 01:16:28 午後
+set -e
+
+git remote prune origin
+
+git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d
