@@ -1,0 +1,2 @@
+$!/usr/bin/env bash
+fzf | xargs -o vim
