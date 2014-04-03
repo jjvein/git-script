@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-name=`uname -a`
-if [[ $name != *Linux* ]] ; then
-    fzf | xargs -o vim
-else
-    # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
-    fzf | xargs bash -c '</dev/tty vim "$@"' ignoreme
-fi

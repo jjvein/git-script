@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 土 22  3月 2014 09:25:35 午後
+set -e
+# Fuzzy finder and vim opener, using fzf from
+# https://github.com/junegunn/fzf
+
+#check if fzf exists
+hash fzf 2>/dev/null || { echo "fzf not found."; exit 1; }
+
+name=`uname -a`
+if [[ $name != *Linux* ]] ; then
+    fzf | xargs -o vim
+else
+    # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
+    fzf | xargs bash -c '</dev/tty vim "$@"' ignoreme
+fi
