@@ -5,7 +5,11 @@ set -e
 
 # show changed files in git cherry
 if [[ -n $1 ]]; then
-    upstream=$@
+    if [[ $1 =~ ^[0-9]*$ ]] ; then
+        upstream="HEAD~$1"
+    else
+        upstream=$1
+    fi
 else
     upstream="master"
 fi
