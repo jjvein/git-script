@@ -31,7 +31,8 @@ if [[ -n $tracking ]] ; then
     fi
 fi
 
-author=`git config user.name`
+author=`whoami`
+# author=`git config user.name`
 conf=`git config push.default`
 
 # first normalize the branch name

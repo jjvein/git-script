@@ -16,7 +16,8 @@ git checkout master
 git up
 git checkout $branch
 git rebase master
-author=`git config user.name`
+# author=`git config user.name`
+author=`whoami`
 if [[ $branch != *${author}\/* ]]; then
     git branch -m "$author/$branch"
 fi
