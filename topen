@@ -5,12 +5,5 @@ set -e
 
 # restore previous tmux session if possible
 # or create a new session
-previous=`tmux ls 2>/dev/null`
-number=`echo $previous | wc -l`
-echo $number
-if [[ $number = 0 ]] ; then
-    exit 0
-    tmux -2 -CC
-    exit 0
-fi
+tmux ls 2>/dev/null || { tmux -2 -CC; exit 0; }
 tmux -2 -CC attach
