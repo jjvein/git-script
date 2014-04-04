@@ -7,6 +7,7 @@ set -e
 # or create a new session
 previous=`tmux ls 2>/dev/null`
 number=`echo $previous | wc -l`
+echo $number
 if [[ $number = 0 ]] ; then
     tmux -2 -CC
     exit 0

@@ -4,4 +4,9 @@
 set -e
 
 # show changed files in git cherry
-git cherry $@ | awk '{print $2}' | xargs git sh
+if [[ -n $1 ]]; then
+    upstream=$@
+else
+    upstream="master"
+fi
+git cherry $upstream | awk '{print $2}' | xargs git sh

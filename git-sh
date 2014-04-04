@@ -2,4 +2,6 @@
 # Author: Jingwei Liu <liujingwei02@meituan.com>
 # Last Modified: 水 26  3月 2014 05:52:42 午後
 set -e
-git show --stat --pretty=format:'%Cred%h%Creset %Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' $@
+if [[ -n $1 ]]; then
+    git show --stat --pretty=format:'%Cred%h%Creset %Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' $@
+fi
