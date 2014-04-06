@@ -1,17 +1,33 @@
 #!/usr/bin/env bash
 # Author: Jingwei Liu <liujingwei02@meituan.com>
-# Last Modified: 土 22  3月 2014 09:25:35 午後
+# Last Modified: 日 06  4 2014 09:39:09 AM
 set -e
-# Fuzzy finder and vim opener, using fzf from
+
+# Fuzzy finder( w/ or w/o Ag) + vim opener, using fzf from
 # https://github.com/junegunn/fzf
 
 #check if fzf exists
-hash fzf 2>/dev/null || { echo "fzf not found."; exit 1; }
+hash fzf 2>/dev/null || { echo "fzf not found.\n install it @ https://github.com/junegunn/fzf"; exit 1; }
+
+if [[ -n $1 ]] ; then
+    hash ag 2>/dev/null || { echo "ag not found.\n install it @ https://github.com/ggreer/the_silver_searcher"; exit 1; }
+
+    matches=`ag -i --ackmate "$@" | fzf +s -m`
+    files=''
+    # remove leading colon
+    for match in $matches ; do
+        files="$files ${match:1}"
+    done
+
+    command="echo $files"
+else
+    command="fzf -m"
+fi
 
 name=`uname -a`
 if [[ $name != *Linux* ]] ; then
-    fzf | xargs -o vim
+    eval $command | xargs -o vim
 else
     # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
-    fzf | xargs bash -c '</dev/tty vim "$@"' ignoreme
+    eval $command | xargs bash -c '</dev/tty vim "$@"' ignoreme
 fi
