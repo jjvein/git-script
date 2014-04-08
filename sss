@@ -10,6 +10,7 @@ set -e
 hash fzf 2>/dev/null || { echo "fzf not found.\n install it @ https://github.com/junegunn/fzf"; exit 1; }
 
 if [[ -n $1 ]] ; then
+    # check if the silver searcher exists
     hash ag 2>/dev/null || { echo "ag not found.\n install it @ https://github.com/ggreer/the_silver_searcher"; exit 1; }
 
     matches=`ag -i --ackmate "$@" | fzf +s -m`
