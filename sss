@@ -9,6 +9,7 @@ set -e
 #check if fzf exists
 hash fzf 2>/dev/null || { echo "fzf not found.\n install it @ https://github.com/junegunn/fzf"; exit 1; }
 
+
 if [[ -n $1 ]] ; then
     # check if the silver searcher exists
     hash ag 2>/dev/null || { echo "ag not found.\n install it @ https://github.com/ggreer/the_silver_searcher"; exit 1; }
@@ -25,10 +26,4 @@ else
     command="fzf -m"
 fi
 
-name=`uname -a`
-if [[ $name != *Linux* ]] ; then
-    eval $command | xargs -o vim
-else
-    # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
-    eval $command | xargs bash -c '</dev/tty vim "$@"' ignoreme
-fi
+vim `fzf -m`
