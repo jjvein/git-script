@@ -15,7 +15,7 @@ if [[ -n $1 ]] ; then
     # check if the silver searcher exists
     hash ag 2>/dev/null || { echo "ag not found.\n install it @ https://github.com/ggreer/the_silver_searcher"; exit 1; }
 
-    matches=`ag -i --ackmate $@ | fzf -m`
+    matches=`ag -i --ackmate $@ | fzf +s -m`
     files=''
     # remove leading colon
     for match in $matches ; do
@@ -24,7 +24,7 @@ if [[ -n $1 ]] ; then
 
     command="echo $files"
 else
-    command="fzf -m"
+    command="git ls-files | fzf +s -m"
 fi
 
 vim `eval $command`
