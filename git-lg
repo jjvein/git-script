@@ -17,7 +17,7 @@ if [[ -n $1 ]] ; then
         logger="$logger | head -$1"
     elif [[ $1 == "-" ]] ; then
         logger="$logger"
-    elif [[ $1 =~ ^[a-zA-Z]*$ ]] ; then
+    elif [[ $1 =~ ^[a-zA-Z] ]] ; then
         logger="$logger | grep $1"
     else
         logger="$logger $@"
