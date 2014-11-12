@@ -27,4 +27,7 @@ else
     command="git ls-files | fzf +s -m"
 fi
 
-vim `eval $command`
+filename=`eval $command`
+if [[ -n $filename ]] ; then
+    vim $filename
+fi
