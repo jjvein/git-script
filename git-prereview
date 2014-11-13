@@ -4,6 +4,5 @@
 set -e
 
 # squash commits before review
-number=`git cherry origin/master | wc -l`
-
+number=`git cherry origin/master | wc -l | awk '{print $NF}'`
 git rebase -i HEAD~$number
