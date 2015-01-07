@@ -6,14 +6,18 @@ set -e
 branch=`git rev-parse --abbrev-ref HEAD`
 git fetch origin
 
-git rebase origin/master
+if [[ $1 == "@" ]] ; then
+    git pull --rebase
+else
+    git rebase origin/master
+fi
 
 if [[ $branch == "master" ]]; then
     exit 0
 fi
 
 # update master as well
-git rebase origin master -q
+git rebase origin/master master -q
 
 # switch back to the feature branch
 git checkout $branch
