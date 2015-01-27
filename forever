@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+for (( ; ; ))
+do
+    $@
+    sleep 3
+done
