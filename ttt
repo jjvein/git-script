@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Author: Jingwei Liu <liujingwei02@meituan.com>
+# Last Modified: 日 06  4 2014 09:39:09 AM
+set -e
+
+# Fuzzy finder( w/ or w/o Ag) + vim opener, using fzf from
+# https://github.com/junegunn/fzf
+
+#check if fzf exists
+hash fzf 2>/dev/null || { echo "fzf not found.\n install it @ https://github.com/junegunn/fzf"; exit 1; }
+
+cd `git rev-parse --show-toplevel`
+
+if [[ -n $1 ]] ; then
+    # check if the silver searcher exists
+    hash ag 2>/dev/null || { echo "ag not found.\n install it @ https://github.com/ggreer/the_silver_searcher"; exit 1; }
+
+    matches=`ag -i --ackmate $@ | peco`
+    files=''
+    # remove leading colon
+    for match in $matches ; do
+        files="$files ${match:1}"
+    done
+
+    command="echo $files"
+else
+    command="git ls-files | peco"
+fi
+
+filename=`eval $command`
+if [[ -n $filename ]] ; then
+    vim $filename
+fi
