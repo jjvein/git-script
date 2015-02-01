@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
 for (( ; ; ))
 do
     $@
-    sleep 3
+    type hr &>/dev/null && hr;
+    sleep 4
 done
