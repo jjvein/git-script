@@ -2,6 +2,7 @@
 for (( ; ; ))
 do
     $@
+    echo -e "\n"
     type hr &>/dev/null && hr;
     sleep 4
 done
