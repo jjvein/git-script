@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 ##脚本自动添加commit与分支相关的信息。 
+## 脚本运行效果展示
+## lichao17@ Date:2015-11-24(17:16:34) commit Branch:master Tag:"提交"
 export COLOR_RED='\033[0;31m'
 export COLOR_OFF='\033[0m'
 export COLOR_BLUE='\033[0;34m'
