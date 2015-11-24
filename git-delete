@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 #####该脚本用于删除本地分支。
+# 用法介绍
+# git delete feature1 
+# git delete feature2 feature3
+
 export COLOR_RED='\e[0;31m'
 export COLOR_NC='\e[0m'
 if [ $# -eq 0 ];then
