@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+##脚本自动添加commit与分支相关的信息。 
+export COLOR_RED='\033[0;31m'
+export COLOR_OFF='\033[0m'
+export COLOR_BLUE='\033[0;34m'
+export COLOR_WHITE='\033[0;37m'
+export COLOR_GREEN='\033[0;32m'
+export COLOR_PURPLE='\033[0;35m'
+
+if [ ! -d .git ];then
+    echo Not a repo dir
+    exit 1
+fi
+date=`date +%Y-%m-%d\(%H:%M:%S\)`
+user=`whoami`
+branchName=`git rev-parse --abbrev-ref HEAD`
+message=
+if [ -n $@ ]; then
+    message=" Tag:\"$@\""
+fi
+git commit -am "${user}@ Date:${date} commit Branch:${branchName}$message"
+echo -e ${COLOR_RED}${user}${COLOR_OFF}@ Date:${COLOR_BLUE}${date}${COLOR_OFF} commit Branch:${COLOR_PURPLE}${branchName}${COLOR_OFF}${COLOR_GREEN}$message${COLOR_OFF}
