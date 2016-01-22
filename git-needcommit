@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#这里必须使用""  将命令包围
 if [ -z "$(git status --porcelain)" ];
 then
     echo "IT IS CLEAN"
