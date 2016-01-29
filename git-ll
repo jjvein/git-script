@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+logger="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+if [ -n "$1" ];then
+    if [[ $1 =~ ^[0-9]*$ ]] ; then
+        logger="$logger | head -$1"
+    elif [[ $1 == "-" ]] ; then
+        logger="$logger"
+    elif [[ $1 =~ ^[a-zA-Z] ]] ; then
+        logger="$logger | grep $1"
+    else
+        logger="$logger $@"
+    fi
+else
+    logger="$logger | head"
+fi
+eval $logger
